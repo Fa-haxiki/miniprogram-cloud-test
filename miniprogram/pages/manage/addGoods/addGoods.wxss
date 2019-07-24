@@ -1,0 +1,47 @@
+/* miniprogram/pages/manage/addGoods/addGoods.wxss */
+.goods-item {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  margin-top: 20rpx;
+  border-top: 2rpx solid rgba(0, 0, 0, 0.1);
+  border-bottom: 2rpx solid rgba(0, 0, 0, 0.1);
+  padding: 10rpx 15rpx;
+  position: relative;
+}
+
+.goods-item.border {
+  border-top: 6rpx solid crimson;
+  border-bottom: 6rpx solid crimson;
+}
+
+.goods-item .goods-image {
+  width: 300rpx;
+  height: 300rpx;
+}
+
+.goods-item .delete {
+  position: absolute;
+  right: 10rpx;
+  top: 10rpx;
+  height: 30rpx;
+  width: 30rpx;
+}
+
+.goods-item .input {
+  margin-left: 20rpx;
+  font-size: 40rpx;
+  flex: 1;
+}
+
+.add-all {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  background: crimson;
+  color: white;
+  height: 100rpx;
+  line-height: 100rpx;
+  text-align: center;
+  width: 100%;
+}

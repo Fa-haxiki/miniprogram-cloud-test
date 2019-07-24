@@ -1,0 +1,8 @@
+<!--index.wxml-->
+<view wx:for="{{goodsList}}" class='goods-item'>
+  <image class='goods-image' src='{{item.img}}' data-index="{{index}}"></image>
+  <view class='input'>
+    <text>{{item.name}}</text>
+    <text class='m-t-40'>{{item.price}}</text>
+  </view>
+</view>

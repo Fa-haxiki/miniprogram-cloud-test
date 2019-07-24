@@ -1,0 +1,21 @@
+.goods-item {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  margin-top: 20rpx;
+  border-top: 2rpx solid rgba(0, 0, 0, 0.1);
+  border-bottom: 2rpx solid rgba(0, 0, 0, 0.1);
+  padding: 10rpx 15rpx;
+  position: relative;
+}
+
+.goods-item .goods-image {
+  width: 300rpx;
+  height: 300rpx;
+}
+
+.goods-item .input {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}

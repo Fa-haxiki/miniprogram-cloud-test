@@ -1,0 +1,64 @@
+/* miniprogram/pages/manage/addSort/addSort.wxss */
+
+.title {
+  margin: 20rpx 0;
+  font-size: 32rpx;
+}
+
+.sort-view {
+  margin: 20rpx;
+}
+
+.sort-list {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.sort-item {
+  width: 223.3rpx;
+  background: darkseagreen;
+  color: white;
+  height: 60rpx;
+  text-align: center;
+  line-height: 60rpx;
+  border-radius: 5px;
+  font-size: 30rpx;
+  margin-right: 20rpx;
+  margin-bottom: 20rpx;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.sort-item:nth-child(3n) {
+  margin-right: unset;
+}
+
+.add-group {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.add {
+  width: 500rpx;
+  height: 60rpx;
+  border: 2rpx solid cornflowerblue;
+  margin-left: 20rpx;
+  border-radius: 5px;
+  padding: 0 30rpx;
+  font-size: 28rpx;
+}
+
+.add-group button {
+  height: 60rpx;
+  line-height: 60rpx;
+  font-size: 28rpx;
+  background: cornflowerblue;
+  color: white;
+}
+
+.holder {
+  font-size: 28rpx;
+}

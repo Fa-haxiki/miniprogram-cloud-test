@@ -1,0 +1,18 @@
+<view class='manage-view'>
+  <view wx:for="{{goodsList}}" class='goods-item {{item.notOk ? "border":""}}' >
+    <image class='goods-image' src='{{item.img}}' data-index="{{index}}" bindtap='uploadImage'></image>
+    <view class='input'>
+      <input placeholder='商品名' value="{{item.name}}" data-index='{{index}}' data-type='name' bindinput='input'></input>
+      <input class='m-t-40' value="{{item.price}}" placeholder='价格' data-index='{{index}}' data-type='price' bindinput='input'></input>
+    </view>
+    <image class='delete' src='../../../images/jujingxi/close.png' data-index='{{index}}' bindtap='deleteItem'></image>
+  </view>
+
+  <view class="uploader" style='margin-bottom: 120rpx'>
+    <view class="uploader-text" bindtap="addGoods">
+      <text>添加商品</text>
+    </view>
+  </view>
+
+  <view class='add-all' bindtap='addTest'>上传</view>
+</view>

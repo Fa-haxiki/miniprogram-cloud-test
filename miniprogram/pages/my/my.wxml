@@ -1,0 +1,29 @@
+<!--index.wxml-->
+<view class="container">
+
+  <!-- 用户 openid -->
+  <view class="userinfo">
+    <button 
+      open-type="getUserInfo" 
+      bindgetuserinfo="onGetUserInfo"
+      class="userinfo-avatar"
+      style="background-image: url({{avatarUrl}})"
+    ></button>
+    <view>
+      <button 
+        open-type="getUserInfo" 
+        bindgetuserinfo="onGetUserInfo" 
+        class="userinfo-nickname"
+        >Welcome ！{{userInfo? userInfo.nickName : ''}}</button>
+    </view>
+  </view>
+
+
+  <!-- 上传图片 -->
+  <view class="uploader">
+    <view class="uploader-text" bindtap='managerLogin'>
+      <text>管理员登录</text>
+    </view>
+  </view>
+
+</view>

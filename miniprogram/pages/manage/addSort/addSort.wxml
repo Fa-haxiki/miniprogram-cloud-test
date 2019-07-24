@@ -1,0 +1,14 @@
+<view class='sort-view'>
+  <view class='title'>现有分类</view>
+  <view class='sort-list'>
+    <view class='sort-item' wx:for="{{sortList}}" style='color: {{randomColor()}}'>
+      {{item.head}}
+    </view>
+  </view>
+</view>
+
+
+<view class='add-group'>
+  <input class='add' placeholder='请输入新的分类名称' value='{{newSortName}}' placeholder-class='holder' bindinput='input'></input>
+  <button catchtap='addSort'>添加</button>
+</view>

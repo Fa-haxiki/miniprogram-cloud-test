@@ -1,0 +1,22 @@
+<view class='login-view' wx:if="{{!isLogin}}">
+  <input class='password' placeholder-class='placeholder' placeholder='管理员账号' data-type='name' bindinput='infoInput'></input>
+  <input class='password' placeholder-class='placeholder' type='password' placeholder='管理员密码' data-type='password' bindinput='infoInput'></input>
+  <button class='login' bindtap='login'>登录</button>
+</view>
+
+<view class='manage-view' wx:if="{{isLogin}}">
+  <view class='welcome'>Welcome {{name}} ！</view>
+
+  <view class="uploader">
+    <view class="uploader-text">
+      <navigator url="addSort/addSort">添加分类</navigator>
+    </view>
+  </view>
+
+  <view class="uploader">
+    <view class="uploader-text">
+      <navigator url="addGoods/addGoods">添加商品</navigator>
+    </view>
+  </view>
+
+</view>
