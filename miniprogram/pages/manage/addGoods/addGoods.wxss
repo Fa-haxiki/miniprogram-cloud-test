@@ -1,37 +1,76 @@
 /* miniprogram/pages/manage/addGoods/addGoods.wxss */
-.goods-item {
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
+page {
+  background: #eee;
+}
+.goods-image {
+  width: 100%;
+}
+.change-image {
+  width: 180rpx;
+  height: 60rpx;
+  line-height: 60rpx;
+  text-align: center;
+  font-size: 28rpx;
+  color: #565656;
+  border: 2rpx solid #565656;
+  border-radius: 4rpx;
+  position: fixed;
+  top: 20rpx;
+  right: 20rpx;
+  background: #eee;
+}
+.choose-type {
+  background: white;
   margin-top: 20rpx;
-  border-top: 2rpx solid rgba(0, 0, 0, 0.1);
-  border-bottom: 2rpx solid rgba(0, 0, 0, 0.1);
-  padding: 10rpx 15rpx;
+}
+.picker-item {
+  height: 50px;
+  display: flex;
+  padding: 0 16px;
   position: relative;
 }
-
-.goods-item.border {
-  border-top: 6rpx solid crimson;
-  border-bottom: 6rpx solid crimson;
+.picker-item .picker-item-label {
+  flex: 1 0 auto;
+  letter-spacing: 0.4px;
+  align-self: center;
+  font-size: 15px;
+  color: #1a1a1a;
 }
-
-.goods-item .goods-image {
-  width: 300rpx;
-  height: 300rpx;
+.picker-item input {
+  flex: 1 0 auto;
+  display: inline-block;
+  font-size: 15px;
+  color: #000;
+  text-align: right;
+  height: 20px;
+  line-height: 20px;
+  align-self: center;
 }
-
-.goods-item .delete {
-  position: absolute;
-  right: 10rpx;
-  top: 10rpx;
-  height: 30rpx;
-  width: 30rpx;
+.picker-item .input-placeholder {
+  font-size: 15px;
+  color: #ccc;
+  align-self: center;
 }
-
-.goods-item .input {
-  margin-left: 20rpx;
-  font-size: 40rpx;
-  flex: 1;
+.picker-item .picker-item-value {
+  flex: 0 0 auto;
+  font-size: 15px;
+  letter-spacing: 0.4px;
+  color: #c7c7cc;
+  margin-left: 7px;
+  align-self: center;
+  justify-content: flex-end;
+  align-items: flex-end;
+}
+.arrow-right {
+  border: solid #c7c7cc;
+  border-width: 0 2px 2px 0;
+  display: inline-block;
+  padding: 4px;
+  transform: rotate(-45deg);
+  position: relative;
+  flex: 0 0 auto;
+  margin-left: 10px;
+  align-self: center;
 }
 
 .add-all {

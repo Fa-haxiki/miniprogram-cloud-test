@@ -6,7 +6,8 @@ Page({
    */
   data: {
     sortList: [],
-    newSortName: ''
+    newSortName: '',
+    resetSortName: ''
   },
 
   getSortList() {
@@ -33,6 +34,12 @@ Page({
     })
   },
 
+  newInput(e) {
+    this.setData({
+      resetSortName: e.detail.value
+    })
+  },
+
   addSort() {
     var that = this
     const db = wx.cloud.database()
@@ -49,6 +56,81 @@ Page({
         that.getSortList();
       }
     })
+  },
+
+  deleteSort(e) {
+    var that = this
+    const sortName = e.currentTarget.dataset.sort
+    const db = wx.cloud.database()
+    wx.showModal({
+      title: '温馨提示',
+      content: '删除分类将删除分类下所有商品，继续删除？',
+      confirmText: '删除',
+      success(res) {
+        if (res.confirm) {
+          wx.showLoading({
+            title: '正在删除...',
+            mask: true
+          })
+          wx.cloud.callFunction({
+            name: 'removeSort',
+            data: {
+              sortName: sortName
+            },
+            complete() {
+              wx.hideLoading()
+              that.getSortList()
+            }
+          })
+        }
+      }
+    })
+  },
+
+  editSort(e) {
+    var that = this
+    that.setData({
+      isEdit: true,
+      id: e.currentTarget.dataset.id
+    })
+  },
+
+  cancelSetSort() {
+    this.setData({
+      isEdit: false
+    })
+  },
+
+  confirmSetSort() {
+    var that = this
+    console.log(that.data.id + '---' + that.data.resetSortName)
+    if (that.data.resetSortName) {
+      wx.showLoading({
+        title: '正在提交...',
+        mask: true
+      })
+      wx.cloud.callFunction({
+        name: 'resetSort',
+        data: {
+          id: that.data.id,
+          newName: that.data.resetSortName
+        }
+      }).then(res => {
+        console.log(res)
+        wx.hideLoading()
+        that.setData({
+          isEdit: false,
+          resetSortName: ''
+        })
+        that.getSortList()
+      })
+    } else {
+      wx.showToast({
+        title: '新的分类名称不能为空',
+        icon: 'none'
+      })
+    }
+    
   },
 
   /**

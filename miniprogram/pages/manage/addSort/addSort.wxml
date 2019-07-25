@@ -1,14 +1,28 @@
+<view class='add-group'>
+  <input class='add' placeholder='请输入新的分类名称' value='{{newSortName}}' placeholder-class='holder' bindinput='input'></input>
+  <button catchtap='addSort'>添加</button>
+</view>
 <view class='sort-view'>
-  <view class='title'>现有分类</view>
+  <view class='title'>现有分类
+    <text class='tip'>(点击修改)</text>
+  </view>
   <view class='sort-list'>
-    <view class='sort-item' wx:for="{{sortList}}" style='color: {{randomColor()}}'>
+    <view class='sort-item' wx:for="{{sortList}}" data-id='{{item._id}}' catchtap='editSort'>
       {{item.head}}
+      <image src='../../../images/close-white.png' data-sort='{{item.head}}' catchtap='deleteSort'></image>
     </view>
   </view>
 </view>
 
-
-<view class='add-group'>
-  <input class='add' placeholder='请输入新的分类名称' value='{{newSortName}}' placeholder-class='holder' bindinput='input'></input>
-  <button catchtap='addSort'>添加</button>
+<view class='mask' wx:if="{{isEdit}}">
+  <view class='edit-view'>
+    <view class='edit-title'>修改分类名称</view>
+    <view class='content'>
+      <input class='new-sort' value="{{resetSortName}}" placeholder='请输入新的分类名称' placeholder-class='holder' bindinput='newInput' bindblur='newInput'></input>
+    </view>
+    <view class='footer'>
+      <button class='footer-btn b-r-2 cancel' catchtap='cancelSetSort'>取消</button>
+      <button class='footer-btn confirm' catchtap='confirmSetSort'>确定</button>
+    </view>
+  </view>
 </view>

@@ -5,26 +5,14 @@ Page({
    * 页面的初始数据
    */
   data: {
-    goodsList: [],
+    defaultImg: 'https://colorhub.me/imgserv/HIxNBiLUJhFngajQsKaviUKf6S2y58KMJmYh47BSFKg/fill/0/500/ce/0/bG9jYWw6Ly8vYzMv/ZjgvNzNhNWJhMTI3/ZjRkNTE1NzkyODQw/MTNmNWMyYWVhZmFj/YzYxYzNmOC5qcGVn.jpg',
+    typeList: [],
+    chooseType: 0
   },
 
-  addGoods() {
+  // 选择图片并上传
+  uploadImage() {
     let that = this
-    const goods = {
-      name: '',
-      img: '../../../images/user-unlogin.png',
-      price: ''
-    }
-    let list = that.data.goodsList
-    list.push(goods)
-    that.setData({
-      goodsList: list
-    })
-  },
-
-  uploadImage(e) {
-    let that = this
-    let index = e.currentTarget.dataset.index;
     // 选择图片
     wx.chooseImage({
       count: 1,
@@ -43,7 +31,7 @@ Page({
           success: res => {
             console.log('[上传文件] 成功：', res)
             that.setData({
-              ['goodsList[' + index + '].img']: res.fileID
+              defaultImg: res.fileID
             })
           },
           fail: e => {
@@ -64,178 +52,79 @@ Page({
     })
   },
 
-  input(e) {
-    let that = this;
-    let type = e.currentTarget.dataset.type;
-    let index = e.currentTarget.dataset.index;
-    switch (type) {
-      case 'name':
-        that.setData({
-          ['goodsList[' + index + '].name']: e.detail.value
-        })
-        break;
-      case 'price':
-        that.setData({
-          ['goodsList[' + index + '].price']: e.detail.value
-        })
-        break;
-      default:
-        break;
-    }
-  },
-
-  deleteItem(e) {
-    let index = e.currentTarget.dataset.index;
-    let list = this.data.goodsList;
-    list.splice(index, 1);
+  // 选择商品类别
+  bindTypeChange(e) {
     this.setData({
-      goodsList: list
+      chooseType: e.detail.value
     })
   },
 
-  addAllGoods() {
-    let that = this
-    let list = that.data.goodsList
-    if (that.data.goodsList.length) {
-      let flag = 1;
-      list.forEach(item => {
-        if (item.name && item.price) {
-          item.notOk = false
-        } else {
-          item.notOk = true
-          flag = 2
-        }
-      })
-      that.setData({
-        goodsList: list
-      })
-      if (flag == 2) {
-        return
+  // 获取分类
+  getTypeList() {
+    var that = this
+    const db = wx.cloud.database()
+    db.collection('menu').get().then(res => {
+      console.log(res)
+      const arr = [];
+      if (res.data.length) {
+        res.data.forEach(item => {
+          arr.push(item.head);
+        })
       }
-    } else {
-      wx.showToast({
-        title: '请至少添加一个商品',
-        icon: 'none'
+      that.setData({
+        typeList: arr
       })
-      return
-    }
-    const db = wx.cloud.database();
-    for (let i = 0; i < that.data.goodsList.length; i++) {
-      wx.showLoading({
-        title: '正在上传' + (i + 1) + '号商品',
-      })
-      db.collection('goods').add({
-        data: {
-          name: that.data.goodsList[i].name,
-          img: that.data.goodsList[i].img,
-          price: that.data.goodsList[i].price
-        },
-        success(res) {
-          console.log(res);
-        }
-      })
-    }
-    wx.hideLoading()
-    wx.showToast({
-      title: '上传完毕',
-    })
-    that.setData({
-      goodsList: []
     })
   },
 
-  addTest() {
-    // const db = wx.cloud.database();
-    // const _ = db.command
-    // db.collection('menu').where({
-    //   head: '饮料'
-    // })
-    // .update({
-    //   data: {
-    //     content: _.push({
-    //       name: "RIO",
-    //       num: "9999",
-    //       picUrl: "../../images/2.png",
-    //       price: "9.9",
-    //       rating: "10",
-    //       sales: "0",
-    //     })
-    //   },
-    //   success(res) {
-    //     console.log(res)
-    //   }
-    // })
+  input(e) {
+    const type = e.currentTarget.dataset.type;
+    this.setData({
+      [type]: e.detail.value
+    })
+  },
+
+  addGoods() {
+    var that = this
+    wx.showLoading({
+      title: '正在添加...',
+    })
     wx.cloud.callFunction({
       name: 'uploadgoods',
       data: {
-        head: '饮料',
+        head: that.data.typeList[that.data.chooseType],
         obj: {
-          name: "RIO",
+          name: that.data.name,
           num: "9999",
-          picUrl: "../../images/2.png",
-          price: "9.9",
-          rating: "10",
+          picUrl: that.data.defaultImg,
+          price: that.data.price,
+          rating: "100",
           sales: "0",
         }
       }
     }).then(res => {
-      console.log(res)
+      wx.hideLoading()
+      wx.showToast({
+        title: '添加成功',
+      })
+      that.setData({
+        defaultImg: 'https://colorhub.me/imgserv/HIxNBiLUJhFngajQsKaviUKf6S2y58KMJmYh47BSFKg/fill/0/500/ce/0/bG9jYWw6Ly8vYzMv/ZjgvNzNhNWJhMTI3/ZjRkNTE1NzkyODQw/MTNmNWMyYWVhZmFj/YzYxYzNmOC5qcGVn.jpg',
+        name: '',
+        price: '',
+        chooseType: 0
+      })
     })
   },
 
-  /**
-   * 生命周期函数--监听页面加载
-   */
   onLoad: function(options) {
-
+    this.getTypeList()
   },
 
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
   onReady: function() {
 
   },
 
-  /**
-   * 生命周期函数--监听页面显示
-   */
   onShow: function() {
 
   },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function() {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function() {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function() {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function() {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function() {
-
-  }
 })

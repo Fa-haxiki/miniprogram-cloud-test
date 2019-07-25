@@ -1,18 +1,28 @@
 <view class='manage-view'>
-  <view wx:for="{{goodsList}}" class='goods-item {{item.notOk ? "border":""}}' >
-    <image class='goods-image' src='{{item.img}}' data-index="{{index}}" bindtap='uploadImage'></image>
-    <view class='input'>
-      <input placeholder='商品名' value="{{item.name}}" data-index='{{index}}' data-type='name' bindinput='input'></input>
-      <input class='m-t-40' value="{{item.price}}" placeholder='价格' data-index='{{index}}' data-type='price' bindinput='input'></input>
+  <image class='goods-image' mode='widthFix' src='{{defaultImg}}'></image>
+  <button class='change-image' catchtap='uploadImage'>更换图片</button>
+  <view class='choose-type'>
+    <picker value="{{chooseType}}" range="{{typeList}}" bindchange="bindTypeChange">
+      <view class="picker-item" hoverClass="highlight" hoverStayTime="200">
+        <view class="picker-item-label">商品类别</view>
+        <view class="picker-item-value">
+          <text>{{typeList[chooseType]}}</text>
+          <text class="arrow-right"></text>
+        </view>
+      </view>
+    </picker>
+    <view class='picker-item'>
+      <view class="picker-item-label">商品名称</view>
+      <view class="picker-item-value">
+        <input placeholder='请输入商品名称' data-type='name' value="{{name}}" bindinput='input' bindblur='input'></input>
+      </view>
     </view>
-    <image class='delete' src='../../../images/jujingxi/close.png' data-index='{{index}}' bindtap='deleteItem'></image>
-  </view>
-
-  <view class="uploader" style='margin-bottom: 120rpx'>
-    <view class="uploader-text" bindtap="addGoods">
-      <text>添加商品</text>
+    <view class='picker-item'>
+      <view class="picker-item-label">商品价格</view>
+      <view class="picker-item-value">
+        <input placeholder='请输入商品价格' data-type='price' value="{{price}}" bindinput='input' bindblur='input'></input>
+      </view>
     </view>
   </view>
-
-  <view class='add-all' bindtap='addTest'>上传</view>
+  <view class='add-all' bindtap='addGoods'>确定添加</view>
 </view>
